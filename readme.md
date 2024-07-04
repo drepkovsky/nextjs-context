@@ -114,5 +114,3 @@ This is not quite ideal for a number of reasons:
 2. When marking the component as an `async` server component you may be fetching the same data multiple times, if you are not caching the responses (NextJS does this auto for requests using `fetch`)
 3. When marking the component as an `async` you may be loosing on the ability to freely compose your components, as now you are unable to import this `async` component inside a client component or a shared component that can be executed on the client.
 
-## Solution
-The solution is to use our `createNextContext` function to smoothen the DX when working with shared context in NextJS apps.
