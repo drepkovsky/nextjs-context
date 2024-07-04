@@ -1,8 +1,8 @@
 # Shared context for NextJS app router
 
 ## Glossary
-- Shared component: A component that is not marked as `async` and does not use the `use client` directive. These components can be imported and used by both client and server async components.
-- Shared context: A context used by shared components, on server is cached and on client is taken from the `React.Context` API.
+- **Shared component**: A component that is not marked as `async` and does not use the `use client` directive. These components can be imported and used by both client and server async components.
+- **Shared context**: A context used by shared components, on server is cached and on client is taken from the `React.Context` API.
 
 ## Motivation
 When trying to prevent 'prop drilling' in  NextJS projects that use the quite not-so-new `app router` you'll often find yourself in a situation where you need to decide whether you'll wrap the each component needing the shared context with the `use client` directive and use the regular `React.Context` API or mark every component as an `async` server component and fetch the context data inside the component itself.
