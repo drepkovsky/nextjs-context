@@ -26,7 +26,7 @@ export const [ThemeContextProvider, useThemeContext, fetchThemeContext] = create
 
 ### Wrap your app with the context provider
 ```tsx
-layout.tsx
+// layout.tsx
 
 import { fetchThemeContext, ThemeContextProvider } from './text-context'
 import type { PropsWithChildren } from 'react'
@@ -49,7 +49,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
 ### Usage in shared components
 ```tsx
-ui/button.tsx
+// ui/button.tsx
 
 import { useThemeContext } from './theme-context'
 
@@ -68,7 +68,7 @@ Now you can use button in both client and server components without worrying abo
 
 ### Usage in client components
 ```tsx
-'client/page.tsx'
+// client/page.tsx
 
 'use client'
 
@@ -88,7 +88,7 @@ export default function Page() {
 ### Usage in async components
 ```tsx
 
-'async/page.tsx'
+// async/page.tsx
 
 export default async function Page() {
   const { themeSettings } = await fetchThemeContext() // notice that you can't use useThemeContext here
