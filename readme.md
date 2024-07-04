@@ -1,14 +1,15 @@
-# Shared context for NextJS app router
+Here is the revised text with grammar corrections:
 
+# Shared Context for NextJS App Router
 
-## How to install
+## How to Install
 ```bash
-npm install @drepkovsky/nextjs-context # or yarn, pnpm, bun etc.
+npm install @drepkovsky/nextjs-context # or yarn, pnpm, bun, etc.
 ```
 
-## How to use
+## How to Use
 
-### Create a shared context
+### Create a Shared Context
 ```ts
 // theme-context.ts
 import { createNextContext } from '@drepkovsky/nextjs-context'
@@ -21,14 +22,13 @@ export const [ThemeContextProvider, useThemeContext, fetchThemeContext] = create
     return { themeSettings }
   }
 )
-
 ```
 
-### Wrap your app with the context provider
+### Wrap Your App with the Context Provider
 ```tsx
 // layout.tsx
 
-import { fetchThemeContext, ThemeContextProvider } from './text-context'
+import { fetchThemeContext, ThemeContextProvider } from './theme-context'
 import type { PropsWithChildren } from 'react'
 
 export default async function RootLayout({ children }: PropsWithChildren) {
@@ -47,7 +47,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 }
 ```
 
-### Usage in shared components
+### Usage in Shared Components
 ```tsx
 // ui/button.tsx
 
@@ -64,9 +64,9 @@ export default function Button() {
 }
 ```
 
-Now you can use button in both client and server components without worrying about fetching the theme settings multiple times.
+Now you can use Button in both client and server components without worrying about fetching the theme settings multiple times.
 
-### Usage in client components
+### Usage in Client Components
 ```tsx
 // client/page.tsx
 
@@ -85,9 +85,8 @@ export default function Page() {
 }
 ```
 
-### Usage in async components
+### Usage in Async Components
 ```tsx
-
 // async/page.tsx
 
 export default async function Page() {
@@ -101,16 +100,15 @@ export default async function Page() {
 }
 ```
 
-
 ## Glossary
 - **Shared component**: A component that is not marked as `async` and does not use the `use client` directive. These components can be imported and used by both client and server async components.
-- **Shared context**: A context used by shared components, on server is cached and on client is taken from the `React.Context` API.
+- **Shared context**: A context used by shared components, cached on the server and taken from the `React.Context` API on the client.
 
 ## Motivation
-When trying to prevent 'prop drilling' in  NextJS projects that use the quite not-so-new `app router` you'll often find yourself in a situation where you need to decide whether you'll wrap the each component needing the shared context with the `use client` directive and use the regular `React.Context` API or mark every component as an `async` server component and fetch the context data inside the component itself.
+When trying to prevent 'prop drilling' in NextJS projects that use the quite not-so-new `app router`, you'll often find yourself in a situation where you need to decide whether you'll wrap each component needing the shared context with the `use client` directive and use the regular `React.Context` API or mark every component as an `async` server component and fetch the context data inside the component itself.
 
-This is not quite ideal for a number of reasons:
-1. When using the `use client` directive you may be bringing redundant JS to the client, even if no specific client-side logic is happening inside the component.
-2. When marking the component as an `async` server component you may be fetching the same data multiple times, if you are not caching the responses (NextJS does this auto for requests using `fetch`)
-3. When marking the component as an `async` you may be loosing on the ability to freely compose your components, as now you are unable to import this `async` component inside a client component or a shared component that can be executed on the client.
+This is not ideal for several reasons:
+1. When using the `use client` directive, you may be bringing redundant JS to the client, even if no specific client-side logic is happening inside the component.
+2. When marking the component as an `async` server component, you may be fetching the same data multiple times if you are not caching the responses (NextJS does this automatically for requests using `fetch`).
+3. When marking the component as `async`, you may lose the ability to freely compose your components, as you are now unable to import this `async` component inside a client component or a shared component that can be executed on the client.
 
