@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": null,
+    "jsx": "react-jsx",
+    "isolatedModules": true,
+    "plugins": [{ "name": "next" }]
+  },
+  "include": ["next-env.d.ts", "../**/src/**/*"],
+  "exclude": ["dist", "node_modules"]
+}

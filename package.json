@@ -1,0 +1,34 @@
+{
+	"name": "@questpie/nextjs-context",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch"
+	},
+	"files": ["dist"],
+	"peerDependencies": {
+		"next": "^13.0.0",
+		"react": "^17.0.0"
+	},
+	"devDependencies": {
+		"@types/react": "^18.3.3",
+		"@types/react-dom": "^18.3.0",
+		"tsup": "^8.1.0",
+		"typescript": "^5.5.3"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"main": "./dist/react-client/index.mjs",
+	"module": "./dist/react-client/index.mjs",
+	"types": "./dist/react-client/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/react-client/index.d.ts",
+			"react-server": "./dist/react-server/index.mjs",
+			"default": "./dist/react-client/index.mjs"
+		},
+		"./package.json": "./package.json"
+	}
+}

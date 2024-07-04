@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "allowJs": true,
+      "jsx": "react-jsx",
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "skipLibCheck": true,
+      "strict": true,
+      "esModuleInterop": true,
+      "module": "esnext",
+      "moduleResolution": "bundler",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "target": "ESNext",
+      "plugins": [{ "name":"next"}]
+    },
+    "include": ["src", "next-env.d.ts"],
+    "exclude": ["node_modules"]
+  }
