@@ -1,6 +1,6 @@
 {
   "name": "@drepkovsky/nextjs-context",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "scripts": {
     "build": "tsup",
@@ -17,8 +17,7 @@
     "tsup": "^8.1.0",
     "typescript": "^5.5.3"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Dominik Repkovský",
   "license": "ISC",
   "main": "./dist/react-client/index.mjs",
   "module": "./dist/react-client/index.mjs",
@@ -30,5 +29,21 @@
       "default": "./dist/react-client/index.mjs"
     },
     "./package.json": "./package.json"
-  }
+  },
+  "keywords": [
+    "NextJS",
+    "app router",
+    "shared context",
+    "createNextContext",
+    "context provider",
+    "React context",
+    "prop drilling",
+    "client components",
+    "server components",
+    "async components",
+    "NextJS context caching",
+    "React shared components",
+    "NextJS project optimization",
+    "context separation"
+  ]
 }
