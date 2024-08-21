@@ -1,17 +1,19 @@
 import { cache, use } from 'react'
 import { ContextProvider } from '../react-client/provider'
-import type { ContextFactory, ProviderProps } from '../types'
+import type { ContextFactory, CreateNextContextReturn, ProviderProps } from '../types'
 
 export function createNextContext<TParams = undefined, TContext = unknown>(
   contextKey: string,
   factory: ContextFactory<TParams, TContext>
-) {
-  const lastArgs = cache(() => ({ args: undefined as TParams | undefined }))
+): CreateNextContextReturn<TParams, TContext> {
+  // biome-ignore lint/suspicious/noConfusingVoidType: <explanation>
+  const lastArgs = cache(() => ({ args: undefined as TParams extends undefined ? void : TParams }))
 
-  const fetchContext = cache((args: TParams | undefined) => {
+  // biome-ignore lint/suspicious/noConfusingVoidType: <explanation>
+  const fetchContext = cache((args: TParams extends undefined ? void : TParams) => {
     lastArgs().args = args
     return (
-      args === undefined ? (factory as () => Promise<TContext>)() : factory(args)
+      args === undefined ? (factory as () => Promise<TContext>)() : factory(args as any)
     ) as Promise<TContext>
   })
 
@@ -31,5 +33,5 @@ export function createNextContext<TParams = undefined, TContext = unknown>(
     return use(fetchContext(args))
   }
 
-  return [Provider, useContext, fetchContext] as const
+  return [Provider, useContext, fetchContext]
 }
