@@ -4,7 +4,7 @@ import { useContext as useReactContext } from 'react'
 import type { ContextFactory, ProviderProps } from '../types'
 import { Context, ContextProvider } from './provider'
 
-export function createNextContext<TParams, TContext>(
+export function createNextContext<TParams = undefined, TContext = unknown>(
   contextKey: string,
   factory: ContextFactory<TParams, TContext>
 ) {
@@ -20,8 +20,13 @@ export function createNextContext<TParams, TContext>(
     return useReactContext(Context)[contextKey] as TContext
   }
 
-  const fetchContext = async (params: TParams) => {
-    return (await factory(params)) as TContext
+  // biome-ignore lint/suspicious/noConfusingVoidType: <explanation>
+  const fetchContext = async (params: TParams extends undefined ? void : TParams) => {
+    return (
+      params === undefined
+        ? (factory as () => Promise<TContext>)()
+        : (factory as (params: TParams) => Promise<TContext>)(params as TParams)
+    ) as TContext
   }
 
   return [Provider, useContext, fetchContext] as const
