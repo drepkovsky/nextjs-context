@@ -2,20 +2,17 @@ import { cache, use } from 'react'
 import { ContextProvider } from '../react-client/provider'
 import type { ContextFactory, ProviderProps } from '../types'
 
-export function createNextContext<TParams, TContext>(
+export function createNextContext<TParams = undefined, TContext = unknown>(
   contextKey: string,
   factory: ContextFactory<TParams, TContext>
 ) {
-  const lastArgs = cache(
-    () =>
-      ({
-        args: undefined,
-      }) as { args: TParams }
-  )
+  const lastArgs = cache(() => ({ args: undefined as TParams | undefined }))
 
-  const fetchContext = cache((args: TParams) => {
+  const fetchContext = cache((args: TParams | undefined) => {
     lastArgs().args = args
-    return factory(args)
+    return (
+      args === undefined ? (factory as () => Promise<TContext>)() : factory(args)
+    ) as Promise<TContext>
   })
 
   const Provider = async (props: ProviderProps<TContext>) => {
@@ -28,9 +25,11 @@ export function createNextContext<TParams, TContext>(
 
   const useContext = () => {
     const args = lastArgs().args
-    if (!args && factory.length > 0) throw new Error('No args provided yet')
+    if (args === undefined && factory.length > 0) {
+      throw new Error('Args required but not provided')
+    }
     return use(fetchContext(args))
   }
 
-  return [Provider, useContext, fetchContext]
+  return [Provider, useContext, fetchContext] as const
 }
