@@ -1,5 +1,3 @@
-Here is the revised text with grammar corrections:
-
 # Shared Context for NextJS App Router
 
 ## How to Install
